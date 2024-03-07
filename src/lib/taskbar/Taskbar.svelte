@@ -27,5 +27,6 @@
 		height: 30px;
 		display: inline-flex;
 		overflow: hidden;
+		align-self: flex-end;
 	}
 </style>
