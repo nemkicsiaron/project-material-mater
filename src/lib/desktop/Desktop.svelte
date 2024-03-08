@@ -1,7 +1,11 @@
 <script>
+	import DesktopItem from "./DesktopItem.svelte";
+    import CompBg from "$lib/assets/images/my-comp-test.png"
+
     let isDragging = false;
     let startX, startY, endX, endY;
 
+    /*
     const handleMouseDown = (event) => {
         isDragging = true;
         startX = event.clientX;
@@ -21,11 +25,16 @@
         isDragging = false;
         // Here you can perform any action you want with the selected area,
         // for example, finding elements within the selected area.
-    }
+    }*/
+
+    let app = "testApp";
+    let iconUri = '$lib/assets/images/my-comp-test.png';
 </script>
 
 <div class="desktop">
+    <DesktopItem {app} iconUri={CompBg}>
 
+    </DesktopItem>
 </div>
 
 <style>
