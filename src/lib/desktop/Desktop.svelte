@@ -1,6 +1,18 @@
 <script>
 	import DesktopItem from "./DesktopItem.svelte";
-    import CompBg from "$lib/assets/images/my-comp-test.png"
+    //import TestBg from '$lib/assets/images/my-comp-test.png'
+
+    let openWindows = $state([]);
+
+    /**
+     * @type function
+     * @param app: App -- A Svelte component representing a
+     */
+    const openNewWindow = (app) => {
+        openWindows.push(app);
+    }
+
+    $effect
 
     let isDragging = false;
     let startX, startY, endX, endY;
@@ -28,13 +40,11 @@
     }*/
 
     let app = "testApp";
-    let iconUri = '$lib/assets/images/my-comp-test.png';
 </script>
 
 <div class="desktop">
-    <DesktopItem {app} iconUri={CompBg}>
-
-    </DesktopItem>
+    <!-- <DesktopItem {app} iconUri={TestBg} name ='blabla'> </DesktopItem> -->
+    <DesktopItem {app} iconUri='/../icons/my-comp-test.png' title open={(app) => openWindows.push(app)}/>
 </div>
 
 <style>
