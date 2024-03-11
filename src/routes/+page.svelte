@@ -1,13 +1,13 @@
 <script>
-    import Taskbar from '$lib/taskbar/Taskbar.svelte';
-    import Desktop from '$lib/desktop/Desktop.svelte';
+	import Taskbar from '$lib/taskbar/Taskbar.svelte';
+	import Desktop from '$lib/desktop/Desktop.svelte';
+
+	const { publicEvents } = $props();
 </script>
 
 <main>
-    <!----<iframe src="https://jspaint.app" width="100%" height="100%" title="Paint"></iframe>-->
-    <Desktop>
-
-    </Desktop>
+	<!----<iframe src="https://jspaint.app" width="100%" height="100%" title="Paint"></iframe>-->
+	<Desktop></Desktop>
 	<Taskbar />
 </main>
 
@@ -29,8 +29,8 @@
 		left: 0;
 		overflow: hidden;
 		position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 </style>

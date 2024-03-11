@@ -1,23 +1,27 @@
 <script>
-	import DesktopItem from "./DesktopItem.svelte";
-    //import TestBg from '$lib/assets/images/my-comp-test.png'
+	import DesktopItem from './DesktopItem.svelte';
+	import GalleryApp from '$lib/apps/GalleryApp.svelte';
+	//import TestBg from '$lib/assets/images/my-comp-test.png';
 
+	let desktopIcons = $state([]);
     let openWindows = $state([]);
 
-    /**
-     * @type function
-     * @param app: App -- A Svelte component representing a
-     */
-    const openNewWindow = (app) => {
-        openWindows.push(app);
-    }
 
-    $effect
+	/**
+	 * @type function
+	 * @param app: App -- A Svelte component representing a
+	 */
+	const openNewWindow = (app) => {
+		openWindows.push(app);
+        console.log('NEW WINDOW OPENED: ', app)
+	};
 
-    let isDragging = false;
-    let startX, startY, endX, endY;
+    console.log(GalleryApp)
 
-    /*
+	let isDragging = false;
+	let startX, startY, endX, endY;
+
+	/*
     const handleMouseDown = (event) => {
         isDragging = true;
         startX = event.clientX;
@@ -38,21 +42,26 @@
         // Here you can perform any action you want with the selected area,
         // for example, finding elements within the selected area.
     }*/
-
-    let app = "testApp";
 </script>
 
 <div class="desktop">
-    <!-- <DesktopItem {app} iconUri={TestBg} name ='blabla'> </DesktopItem> -->
-    <DesktopItem {app} iconUri='/../icons/my-comp-test.png' title open={(app) => openWindows.push(app)}/>
+	<!-- <DesktopItem {app} iconUri={TestBg} name ='blabla'> </DesktopItem> -->
+    {#each desktopIcons as di}
+        <DesktopItem
+            app={GalleryApp}
+            iconUri="/../icons/my-comp-test.png"
+            title="TestGallery"
+            open={openNewWindow}
+        />
+    {/each}
 </div>
 
 <style>
-    .desktop {
-        background: url($lib/assets/images/win-bg.jpg?enhanced) no-repeat;
-        background-size: cover;
-        background-position: center;
-        flex: 1;
-        z-index: 0;
-    }
+	.desktop {
+		background: url($lib/assets/images/win-bg.jpg?enhanced) no-repeat;
+		background-size: cover;
+		background-position: center;
+		flex: 1;
+		z-index: 0;
+	}
 </style>
