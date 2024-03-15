@@ -15,7 +15,9 @@
 </script>
 
 <button>
-	{time.getHours()}:{time.getMinutes() >= 10 ? time.getMinutes() : `0` + time.getMinutes()}
+	<p role="time">
+		{time.getHours()}:{time.getMinutes() >= 10 ? time.getMinutes() : `0` + time.getMinutes()}
+	</p>
 </button>
 
 <style>
