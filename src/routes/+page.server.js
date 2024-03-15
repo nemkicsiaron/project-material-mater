@@ -1,16 +1,16 @@
+// @ts-nocheck
 //import { getPublicEvents } from '$lib/database/dev_db'
 import { supabase } from '$lib/database/sbClient';
 
-export const ssr = true;
+export const ssr = false;
+export const prerender = true;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-	const { publicEvents } = supabase
-		.from('events_gallery_dev')
-		.select('id, title, description, time, location')
-		.eq('public', 'PUBLIC');
+	const { data } = supabase.from('events_dev').select('id, title, description, time, location');
+	//.eq('public', 'PUBLIC');
 
 	return {
-		events: publicEvents ?? []
+		events: data ?? []
 	};
 }

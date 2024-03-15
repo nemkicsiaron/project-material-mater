@@ -2,7 +2,9 @@
 	import Taskbar from '$lib/taskbar/Taskbar.svelte';
 	import Desktop from '$lib/desktop/Desktop.svelte';
 
-	const { publicEvents } = $props();
+	const { data } = $props();
+
+	console.log(data);
 </script>
 
 <main>
