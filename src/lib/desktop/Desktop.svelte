@@ -13,10 +13,12 @@
 
 	/**
 	 * @type function
-	 * @param app: App -- A Svelte component representing a
+	 * @param {function} app -- A Svelte component representing an AppComponent from $lib/apps
+	 * @param {object} iconUri -- Svelte enhanced img from import
+	 * @param {string} title -- Title of app
 	 */
 
-	const openNewWindow = (app, iconUri, title) => {
+	function openNewWindow(app, iconUri, title) {
 		//openWindows.push(app);
 		const newApp = {
 			appComponent: app,
@@ -25,6 +27,17 @@
 		};
 		openWindows = [...openWindows, newApp];
 	};
+
+	let test;
+
+	console.log(test);
+
+	/**@param {number} index*/
+	function closeWindow(index, app) {
+		if(index == null || index < 0) index = openWindows.indexOf(app);
+
+		openWindows.splice(index, 1);
+	}
 
     console.log(MyComp.img.src);
 
@@ -69,7 +82,7 @@
 	<div class="window" style="width: 600px; color:white">
 		<div class="title-bar" style="user-select: none; padding-left: 5px">
 			<img src={iconUri.img.src} alt="An icon in the top left of a window" style="max-height: 20px;" />
-			<div class="title-bar-text">TEST</div>
+			<div class="title-bar-text">{title}</div>
 			<div class="title-bar-controls">
 				<button aria-label="Minimize"></button>
 				<button aria-label="Maximize"></button>
