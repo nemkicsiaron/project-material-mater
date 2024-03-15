@@ -3,33 +3,43 @@
 	/**
 	 * @type {{
 	 *  app: *
-	 *  iconUri: string
+	 *  iconUri: {string}
+	 * 	title: {string}
 	 *  open: function
 	 * }}
 	 */
-	let { app = null, iconUri = '', open = undefined } = $props();
-	//console.log(app, iconUri)
+	let { app = null, iconUri = 'ICON', title = 'Placeholder', open = undefined } = $props();
+
+
+	export function unfocus() {
+		selected = false;
+	}
+
 	/**@type {boolean}*/
 	let selected = $state(false);
 	const selectApp = () => {
 		if (selected) {
 			//TODO: Open WIndow
-            open()
-            console.log(open)
+			open(app, iconUri, title);
 			selected = false;
 		} else {
 			selected = true;
 		}
-		//console.log(selected);
 	};
 </script>
 
-<div class="container" onclick={selectApp} role="application">
-	<div class={selected ? 'selected-filter' : ''}>
-		<img src="${iconUri}" alt="Desktop icon for {app.name ?? 'App'}" />
-	</div>
+<!-- svelte-ignore a11y-click-events-have-key-events-->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions-->
+<div
+	class="container"
+	onclick={selectApp}
+	role="application"
+	on:unselect={() => console.log('unfocused')}
+>
+	<enhanced:img src={iconUri} alt="Desktop icon for {title ?? 'App'}" />
+	<div class={selected ? 'selected-filter' : ''}></div>
 	<text class={selected ? 'selected' : ''}>
-		{app.name ?? 'App'}
+		{title}
 	</text>
 </div>
 
@@ -40,12 +50,18 @@
 		max-width: 75px;
 		align-items: center;
 		position: relative;
+		&:focus {
+			border: 0.2px lightgray dotted;
+		}
 	}
 	.selected {
-		background-color: rgb(0, 78, 247);
+		background-color: rgba(0, 78, 247, 0.8);
 	}
 	.selected-filter {
-		background-color: rgba(0, 78, 247, 0.6);
+		background-color: rgba(0, 78, 247, 0.8);
+		width: 40px;
+		height: 40px;
+		position: absolute;
 	}
 	img {
 		min-width: 40px;
@@ -58,5 +74,7 @@
 		text-align: center;
 		color: #fff;
 		text-wrap: wrap;
+		-webkit-user-select: none;
+		user-select: none;
 	}
 </style>

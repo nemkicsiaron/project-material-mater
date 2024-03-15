@@ -8,6 +8,7 @@
 </script>
 
 <div class="container">
+	<h1>TESTESTEST</h1>
 	{#each publicEvents as pe}
 		<p>HI</p>
 	{/each}
