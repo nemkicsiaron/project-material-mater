@@ -1,16 +1,14 @@
 <script>
-	import Taskbar from '$lib/taskbar/Taskbar.svelte';
 	import Desktop from '$lib/desktop/Desktop.svelte';
 
 	const { data } = $props();
 
-	console.log(data);
+	console.log("Data: " + JSON.stringify(data));
 </script>
 
 <main>
 	<!----<iframe src="https://jspaint.app" width="100%" height="100%" title="Paint"></iframe>-->
 	<Desktop></Desktop>
-	<Taskbar />
 </main>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-	import { getPhotosOfEvent, getPublicEvents } from '$lib/database/dev_db.js';
+	import { getPhotosOfEvent, getAllPublicEvents } from '$lib/database/dev_db.js';
 
 	let publicEvents = $state();
 

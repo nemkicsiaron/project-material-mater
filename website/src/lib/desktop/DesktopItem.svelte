@@ -8,15 +8,15 @@
 	 *  open: function
 	 * }}
 	 */
-	let { app = null, iconUri = 'ICON', title = 'Placeholder', open = undefined } = $props();
+	const { app = null, iconUri = 'ICON', title = 'Placeholder', open = undefined } = $props();
 
+	/**@type {boolean}*/
+	let selected = $state(false);
 
 	export function unfocus() {
 		selected = false;
 	}
 
-	/**@type {boolean}*/
-	let selected = $state(false);
 	const selectApp = () => {
 		if (selected) {
 			//TODO: Open WIndow

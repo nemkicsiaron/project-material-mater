@@ -1,4 +1,5 @@
 <script>
+	import Taskbar from '../taskbar/Taskbar.svelte'
 	import DesktopItem from './DesktopItem.svelte';
 	import GalleryApp from '$lib/apps/GalleryApp.svelte';
 	import Window from './Window.svelte';
@@ -6,13 +7,16 @@
 
 	/** Icons displayed on the desktop
      * @typedef {{app: function, iconUri: Object, title: string, component: Object}} Icon*/
+	/** Apps that can be opened as windows
+     * @typedef {{appComponent: function, iconUri: Object, title: string, component: Object}} Window*/
 
     /**@type {Icon[]}*/
 	let desktopIcons = $state([]);
+	/**@type {Window[]}*/
 	let openWindows = $state([]);
 
 	/**
-	 * @type function
+	 * @function
 	 * @param {function} app -- A Svelte component representing an AppComponent from $lib/apps
 	 * @param {object} iconUri -- Svelte enhanced img from import
 	 * @param {string} title -- Title of app
@@ -23,7 +27,8 @@
 		const newApp = {
 			appComponent: app,
 			iconUri: iconUri,
-			title: title
+			title: title,
+			component: null,
 		};
 		openWindows = [...openWindows, newApp];
 	};
@@ -52,6 +57,11 @@
         component: null
 	});
 
+	function emptyClick() {
+		desktopIcons.map((di) => di.component.unfocus());
+		openWindows.map((w) => w.component.unfocus());
+	}
+
     /*
 	let isDragging = false;
 	let startX, startY, endX, endY;
@@ -78,36 +88,21 @@
     }*/
 </script>
 
-{#snippet window({ appComponent, iconUri, title })}
-	<div class="window" style="width: 600px; color:white">
-		<div class="title-bar" style="user-select: none; padding-left: 5px">
-			<img src={iconUri.img.src} alt="An icon in the top left of a window" style="max-height: 20px;" />
-			<div class="title-bar-text">{title}</div>
-			<div class="title-bar-controls">
-				<button aria-label="Minimize"></button>
-				<button aria-label="Maximize"></button>
-				<button aria-label="Close"></button>
-			</div>
-		</div>
-		<div class="window-body">
-			<svelte:component this={appComponent} />
-		</div>
-	</div>
-{/snippet}
-
 
 <div class="desktop">
-	<!-- <DesktopItem {app} iconUri={TestBg} name ='blabla'> </DesktopItem> -->
 	{#each desktopIcons as di}
 		<DesktopItem bind:this={di.component} app={di.app} iconUri={di.iconUri} title={di.title} open={openNewWindow} />
 	{/each}
-	{#each openWindows as w}
-        {@render window(w)}
+	{#each openWindows as w, i}
+        <!-- {@render window(w)} -->
+		<Window bind:this={w.component} appComponent={w.appComponent} title={w.title} iconUri={w.iconUri} />
+			<!-- {w.appComponent} -->
 	{/each}
 	<!-- svelte-ignore a11y-click-events-have-key-events-->
 	<!-- svelte-ignore a11y-no-noninteractive-element-interactions-->
-	<div class="emptyspace" onclick={() => desktopIcons.map((di) => di.component.unfocus())} role="none"></div>
+	<div class="emptyspace" onclick={emptyClick} role="none"></div>
 </div>
+<Taskbar {openWindows} />
 
 <style>
 	.desktop {

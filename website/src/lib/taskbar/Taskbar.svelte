@@ -1,10 +1,18 @@
 <script>
 	import Clock from './Clock.svelte';
 	import Start from './Start.svelte';
+	import TaskbarItem from './TaskbarItem.svelte'
+
+	const {openWindows} = $props();
 </script>
 
 <div class="taskbar">
 	<Start />
+	<div class="tabs">
+		{#each openWindows as w}
+			<TaskbarItem iconUri={w.iconUri} title={w.title}></TaskbarItem>
+		{/each}
+	</div>
 	<Clock />
 </div>
 
@@ -28,5 +36,13 @@
 		display: inline-flex;
 		overflow: hidden;
 		align-self: flex-end;
+	}
+
+	.tabs {
+		display: flex;
+		flex-direction: row;
+		gap: 1px;
+		margin-top: 4px;
+		margin-bottom: 4px;
 	}
 </style>

@@ -1,4 +1,8 @@
-<button class="start" onclick={() => console.log('START')}>💃start</button>
+<button class="start" onclick={() => console.log('START')}>
+	<em>
+		💃start
+	</em>
+</button>
 
 <style>
 	.start {
@@ -27,7 +31,8 @@
 		position: relative;
 		display: block;
 		text-shadow: 2px 2px 5px black;
-		padding: 1px 4px 1px 0px;
+		padding: 2px 2px 2px 0px;
+		margin-right: 10px;
 
 		&:not(:disabled) {
 			&:active,
